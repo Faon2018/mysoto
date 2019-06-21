@@ -2,6 +2,7 @@ package com.example.soto.controller;
 
 import com.example.soto.dao.UserMapper;
 import com.example.soto.entity.User;
+import com.example.soto.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,17 +16,18 @@ import java.util.Map;
 @Controller
 public class UserController {
     @Autowired
-    private UserMapper userMapper;
-
-    @RequestMapping("/select")
-    @ResponseBody
-    public User  selectById(){
-       return userMapper.selectById();
-    }
-
-
+    private UserServiceImpl  userServiceImpl;
+//
+//    @RequestMapping("/select")
+//    @ResponseBody
+//    public User  selectById(){
+//       return userMapper.selectById();
+//    }
+//
+//
     @RequestMapping("/test")
     public  String  test(Map<String,Object> map){
+        User user =userServiceImpl.get();
         map.put("name", "Joe");
         map.put("sex", 1);    //sex:性别，1：男；0：女；
         map.put("test","test");
@@ -40,6 +42,8 @@ public class UserController {
         friend.put("age", 18);
         friends.add(friend);
         map.put("friends", friends);
-        return "freemarker";
+        map.put("user", user);
+//        return "freemarker";
+        return "components/header";
     }
 }

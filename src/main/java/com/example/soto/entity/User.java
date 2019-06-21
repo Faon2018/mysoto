@@ -1,5 +1,8 @@
 package com.example.soto.entity;
 
+
+
+//@Data
 public class User {
     private int id;
     private String name;
@@ -27,14 +30,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 }
