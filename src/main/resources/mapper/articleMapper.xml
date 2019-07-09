@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.faon.dao.ArticleMapper" >
+
+
+
+    <select id="selectAll"  resultMap="result_article">
+        SELECT  *  FROM  article
+    </select>
+
+<!--    <select id="selectArticleAndCategory" resultMap="result_article_category">-->
+
+<!--    </select>-->
+
+    <resultMap id="result_article" type="com.faon.entity.Article" >
+        <id  property="id"  column="id" jdbcType="BIGINT" />
+        <result  property="categoryId" column="category_id" jdbcType="BIGINT" />
+        <result  property="isDel" column="is_del" jdbcType="TINYINT" />
+    </resultMap>
+
+
+</mapper>
