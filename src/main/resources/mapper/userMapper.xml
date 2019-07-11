@@ -2,7 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.faon.dao.UserMapper">
-    <select id="selectById"  resultType="com.faon.entity.User">
-        SELECT * FROM user
+
+    <resultMap id="user_role_permission" type="com.faon.entity.User">
+        <id property="id" column="id"/>
+        
+        <collection property="roles"  ofType="com.faon.entity.Role">
+            <collection property="permissions" ofType="com.faon.entity.Permission">
+
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="getUserRolePermissionById"  parameterType="int" resultMap="user_role_permission">
+        SELECT t_user.*,t_role.*,t_permission.* FROM `user`  t_user
+        LEFT JOIN  user_role  t_user_role  ON  t_user.id = t_user_role.user_id
+        LEFT JOIN  role  t_role  ON  t_role.id = t_user_role.role_id
+        LEFT JOIN  role_permission  t_role_permission  ON  t_role_permission.role_id=t_role.id
+        LEFT JOIN  permission   t_permission  ON  t_permission.id=t_role_permission.permission_id
+        WHERE  t_user.locked = '正常'  AND  t_user_role.available = '可用'
+        AND  t_role.available = '可用'  AND  t_role_permission.available = '可用'
+        AND  t_permission.available = '可用'  AND  t_user.id = #{id};
     </select>
+
+    <select id="getUserByName"  parameterType="String"  resultType="com.faon.entity.User">
+        SELECT * FROM user  where  username=#{username}
+    </select>
+
+    <insert id="addUser" parameterType="String">
+        insert into  user(username,password) values(#{username},#{password})
+    </insert>
 </mapper>

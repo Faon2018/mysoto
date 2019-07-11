@@ -62,6 +62,12 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+        <!--shiro-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.2.5</version>
+        </dependency>
 
         <!--  lombok插件      -->
 <!--        <dependency>-->

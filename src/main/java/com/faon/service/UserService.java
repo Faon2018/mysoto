@@ -4,5 +4,9 @@ import com.faon.entity.User;
 
 public interface UserService {
 
-    User get();
+    User getUserRolePermissionById(int userId);
+
+    User  getUserByName(String username);
+
+    Boolean  addUser(User user);
 }
