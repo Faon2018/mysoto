@@ -9,10 +9,10 @@ import java.util.Set;
 //@Data
 public class User {
     private int id;
-    private Date adate;
+    private Date   insertDate;
     private String username;
     private String password;
-    private Date udate;
+    private Date   updateDate;
     private String locked;
     private List<Role> roles =new ArrayList<Role>();
 
@@ -32,12 +32,12 @@ public class User {
         this.id = id;
     }
 
-    public Date getAdate() {
-        return adate;
+    public Date getInsertDate() {
+        return insertDate;
     }
 
-    public void setAdate(Date adate) {
-        this.adate = adate;
+    public void setInsertDate(Date insertDate) {
+        this.insertDate = insertDate;
     }
 
     public String getUsername() {
@@ -56,12 +56,12 @@ public class User {
         this.password = password;
     }
 
-    public Date getUdate() {
-        return udate;
+    public Date getUpdateDate() {
+        return updateDate;
     }
 
-    public void setUdate(Date udate) {
-        this.udate = udate;
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     public String getLocked() {

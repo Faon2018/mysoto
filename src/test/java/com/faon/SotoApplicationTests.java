@@ -1,5 +1,6 @@
 package com.faon;
 
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class SotoApplicationTests {
     @Test
     public void testInsert() throws Exception
     {
+
 
     }
 
