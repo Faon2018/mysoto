@@ -11,6 +11,7 @@
     <groupId>com.faon</groupId>
     <artifactId>soto</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>soto</name>
     <description>Demo project for Spring Boot</description>
 
@@ -90,6 +91,7 @@
 
 
     <build>
+        <finalName>soto</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -15,35 +15,16 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
-    @Value("${shiro.hashAlgorithmName}")
-    private static String hashAlgorithmName;
-    @Value("${shiro.hashIterations}")
-    private static int  hashIterations;
-
-    public static String  getHashAlgorithmName() {
-        return hashAlgorithmName;
-    }
-
-    public void setHashAlgorithmName(String hashAlgorithmName) {
-        this.hashAlgorithmName = hashAlgorithmName;
-    }
-
-    public static int getHashIterations() {
-        return hashIterations;
-    }
-
-    public void setHashIterations(int hashIterations) {
-        this.hashIterations = hashIterations;
-    }
 
     @Bean("hashedCredentialsMatcher")
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+    public HashedCredentialsMatcher hashedCredentialsMatcher(@Value("${shiro.hashAlgorithmName}") String hashAlgorithmName,
+                                                             @Value("${shiro.hashIterations}") int hashIterations ) {
         HashedCredentialsMatcher credentialsMatcher =
                 new HashedCredentialsMatcher();
         //指定加密方式为MD5
-        credentialsMatcher.setHashAlgorithmName("MD5");
+        credentialsMatcher.setHashAlgorithmName(hashAlgorithmName);
         //加密次数
-        credentialsMatcher.setHashIterations(1024);
+        credentialsMatcher.setHashIterations(hashIterations);
         credentialsMatcher.setStoredCredentialsHexEncoded(true);
         return credentialsMatcher;
     }
@@ -67,7 +48,7 @@ public class ShiroConfig {
         // 设置登录成功跳转Url
         bean.setSuccessUrl("/main");
         // 设置登录跳转Url
-        bean.setLoginUrl("/toLogin");
+//        bean.setLoginUrl("/toLogin");
         // 设置未授权提示Url
         bean.setUnauthorizedUrl("/error/unAuth");
 
@@ -80,13 +61,19 @@ public class ShiroConfig {
          **/
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/login","anon");
+        filterMap.put("/register","anon");
         filterMap.put("/user/index","authc");
         filterMap.put("/vip/index","roles[vip]");
         filterMap.put("/druid/**", "anon");
         filterMap.put("/static/**","anon");
 
-//        filterMap.put("/**","authc");
         filterMap.put("/logout", "logout");
+        //过滤掉静态资源
+        filterMap.put("/node_modules/**","anon");
+        filterMap.put("/js/**","anon");
+        filterMap.put("/css/**","anon");
+        filterMap.put("/fonts/**","anon");
+        filterMap.put("/**","authc");
 
         bean.setFilterChainDefinitionMap(filterMap);
         return bean;

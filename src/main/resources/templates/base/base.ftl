@@ -13,7 +13,8 @@
     <#macro css>
     <#nested>
     </#macro>
-    <link rel="stylesheet" href="/css/bootstrap.css" media="all">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css" media="all">
 </head>
 <body>
 

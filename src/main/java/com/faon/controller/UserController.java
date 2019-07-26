@@ -1,6 +1,6 @@
 package com.faon.controller;
 
-import com.faon.config.ShiroConfig;
+
 import com.faon.entity.User;
 import com.faon.service.impl.UserServiceImpl;
 import org.apache.shiro.SecurityUtils;
@@ -13,12 +13,14 @@ import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +32,10 @@ public class UserController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UserServiceImpl userServiceImpl;
+    @Value("${shiro.hashAlgorithmName}")
+    private String hashAlgorithmName;
+    @Value("${shiro.hashIterations}")
+    private int hashIterations;
 //
 //    @RequestMapping("/select")
 //    @ResponseBody
@@ -38,6 +44,12 @@ public class UserController {
 //    }
 //
 //
+    @GetMapping("/callback")
+    public String callback(@RequestParam("code") String code,@RequestParam("state") String state){
+        System.out.println(code);
+        System.out.println(state);
+        return  "redirect:/index";
+    }
     @RequestMapping("/test")
     public  String  test(Map<String,Object> map){
         User user =userServiceImpl.getUserByName("dsd");
@@ -108,13 +120,14 @@ public class UserController {
      */
     public User passwordEncryption(String username,String password){
             ByteSource credentialsSalt = ByteSource.Util.bytes(username);
-            Object obj = new SimpleHash(ShiroConfig.getHashAlgorithmName(), password, credentialsSalt, ShiroConfig.getHashIterations());
+            Object obj = new SimpleHash(hashAlgorithmName, password, credentialsSalt, hashIterations);
         return  new User(username,obj.toString());
     }
 
 
 
     /**
+     *
      * 登录验证
      * @param username
      * @param password
@@ -129,7 +142,8 @@ public class UserController {
             // 1.获取Subject
             Subject subject = SecurityUtils.getSubject();
             // 2.封装用户数据
-            UsernamePasswordToken token = new UsernamePasswordToken(username,passwordEncryption(username, password).getPassword());
+//            UsernamePasswordToken token = new UsernamePasswordToken(username,passwordEncryption(username, password).getPassword());
+            UsernamePasswordToken token = new UsernamePasswordToken(username,password);
             // 3.执行登录方法
             try{
                 subject.login(token);
