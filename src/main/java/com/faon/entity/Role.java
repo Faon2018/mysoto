@@ -11,7 +11,7 @@ public class Role {
     private  String description;
     private  Date   updateDate;
     private  String available;
-    private  List<Permission> permissions =new ArrayList<Permission>();
+    private  List<Permission> permissions;
 
     public int getId() {
         return id;

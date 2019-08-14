@@ -14,7 +14,7 @@ public class User {
     private String password;
     private Date   updateDate;
     private String locked;
-    private List<Role> roles =new ArrayList<Role>();
+    private List<Role> roles;
 
 
     public  User(){

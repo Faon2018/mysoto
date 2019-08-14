@@ -29,7 +29,7 @@ public class ShiroConfig {
         return credentialsMatcher;
     }
 
-    @Bean("ShiroRealm")
+    @Bean("shiroRealm")
     public Realm shiroRealm(@Qualifier("hashedCredentialsMatcher")
                                        HashedCredentialsMatcher matcher) {
 

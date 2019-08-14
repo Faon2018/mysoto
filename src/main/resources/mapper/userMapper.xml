@@ -3,15 +3,6 @@
 
 <mapper namespace="com.faon.dao.UserMapper">
 
-    <resultMap id="user_role_permission" type="com.faon.entity.User">
-        <id property="id" column="id"/>
-        
-        <collection property="roles"  ofType="com.faon.entity.Role">
-            <collection property="permissions" ofType="com.faon.entity.Permission">
-
-            </collection>
-        </collection>
-    </resultMap>
     <select id="getUserRolePermissionById"  parameterType="int" resultMap="user_role_permission">
         SELECT t_user.*,t_role.*,t_permission.* FROM `user`  t_user
         LEFT JOIN  user_role  t_user_role  ON  t_user.id = t_user_role.user_id
@@ -30,4 +21,14 @@
     <insert id="addUser" parameterType="String">
         insert into  user(username,password) values(#{username},#{password})
     </insert>
+
+    <resultMap id="user_role_permission" type="com.faon.entity.User">
+        <id property="id" column="id"/>
+
+        <collection property="roles"  ofType="com.faon.entity.Role">
+            <collection property="permissions" ofType="com.faon.entity.Permission">
+
+            </collection>
+        </collection>
+    </resultMap>
 </mapper>

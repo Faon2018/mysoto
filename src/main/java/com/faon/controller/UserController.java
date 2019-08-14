@@ -1,6 +1,7 @@
 package com.faon.controller;
 
 
+import com.faon.entity.Result;
 import com.faon.entity.User;
 import com.faon.service.impl.UserServiceImpl;
 import org.apache.shiro.SecurityUtils;
@@ -17,9 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
@@ -135,6 +134,7 @@ public class UserController {
      * @param view
      * @return
      */
+
     public String   loginVerify(String username,String password,Model model,String view){
         if(!StringUtils.isEmpty(username)){
             logger.info(username);
@@ -159,4 +159,45 @@ public class UserController {
 
         return view;
     }
+//    @ResponseBody
+//    @RequestMapping("/login")
+//    public  Result  login(@RequestParam( value = "username",required = false) String username, @RequestParam(value = "password",required = false) String password, Model model){
+//        model.addAttribute("msg","");
+//        return loginVerify(username,password,model,"login");
+//    }
+//
+//    @ResponseBody
+//    public Result loginVerify(String username, String password, Model model, String view){
+//        Result result=new Result();
+//        if(!StringUtils.isEmpty(username)){
+//            logger.info(username);
+//            logger.info(password);
+//            // 1.获取Subject
+//            Subject subject = SecurityUtils.getSubject();
+//            // 2.封装用户数据
+////            UsernamePasswordToken token = new UsernamePasswordToken(username,passwordEncryption(username, password).getPassword());
+//            UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+//            // 3.执行登录方法
+//            try{
+//                subject.login(token);
+////                return "redirect:/index";
+//                model.addAttribute("msg","登录成功！");
+//                result.setMsg("登陆成功");
+//                result.setCode(1);
+//                result.setData(new User(username,password));
+//            } catch (UnknownAccountException e){
+//                System.out.println("用户名不存在！");
+//                model.addAttribute("msg","用户名不存在！");
+//                result.setMsg("用户名不存在");
+//                result.setCode(-1);
+//            } catch (IncorrectCredentialsException e){
+//                System.out.println("密码错误！");
+//                model.addAttribute("msg","密码错误！");
+//                result.setMsg("密码错误");
+//                result.setCode(-1);
+//            }
+//        }
+//
+//        return result;
+//    }
 }

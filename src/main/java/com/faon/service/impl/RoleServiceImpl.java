@@ -14,8 +14,8 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleMapper roleMapper;
     @Override
-    public Role getRoleByid(int id) {
-        return roleMapper.getRoleByid(id);
+    public Role getRoleById(int id) {
+        return roleMapper.getRoleById(id);
     }
 
     @Override
